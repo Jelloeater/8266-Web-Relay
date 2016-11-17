@@ -9,27 +9,6 @@ sock.bind((host, port))
 sock.listen(1) # don't queue up any requests
 
 
-def parse_req(get_req):
-    print ('Get Req:')
-    print(get_req)
-    if 'favicon.ico' not in get_req:
-        get_req=get_req[1:]
-        data=get_req.split('=')
-        print(data)
-        pin_logic(data)
-
-def pin_logic(data):
-    if 'pin1' in data[0]:
-        if 'True' in data[1]:
-            print('yes')
-        else:
-            print('no')
-
-def parse_logic(input):
-    input=input[1:]
-    data=input.split('=')
-    print(data)
-
 def run():
     while True:
         csock, caddr = sock.accept()
@@ -66,5 +45,22 @@ def run():
         </html>
         """.format(str(output)))
         csock.close()
+
+def parse_req(get_req):
+    print ('Get Req:')
+    print(get_req)
+    if 'favicon.ico' not in get_req:
+        get_req=get_req[1:]
+        data=get_req.split('=')
+        print(data)
+        return pin_logic(data)
+
+def pin_logic(data):
+    if 'pin1' in data[0]:
+        print('yes') if 'True' in data[1] else print('no')
+
+    if 'pin2' in data[0]:
+        print('yes') if 'True' in data[1] else print('no')
+
 
 run()
