@@ -56,11 +56,12 @@ def parse_req(get_req):
         return pin_logic(data)
 
 def pin_logic(data):
+    import machine
     if 'pin1' in data[0]:
-        print('yes') if 'True' in data[1] else print('no')
+        machine.Pin(16, machine.Pin.OUT).off() if 'True' in data[1] else machine.Pin(16, machine.Pin.OUT).on()
 
     if 'pin2' in data[0]:
-        print('yes') if 'True' in data[1] else print('no')
+        machine.Pin(2, machine.Pin.OUT).off() if 'True' in data[1] else machine.Pin(2, machine.Pin.OUT).on()
 
 
 run()
